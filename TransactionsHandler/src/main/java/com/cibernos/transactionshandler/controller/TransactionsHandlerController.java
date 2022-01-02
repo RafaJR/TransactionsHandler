@@ -1,5 +1,6 @@
 package com.cibernos.transactionshandler.controller;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class TransactionsHandlerController {
 	@PostMapping("/saveTransaction")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<String> saveTransaction(
-			@RequestBody @NotNull(message = TransactionsHandlerConstants.NOT_NULL_TRANSACTION) TransactionInputDTO transactionInput) {
+			@RequestBody @NotNull(message = TransactionsHandlerConstants.NOT_NULL_TRANSACTION) @Valid TransactionInputDTO transactionInput) {
 
 		log.info(TransactionsHandlerConstants.SAVING_TRANSACTION_CALL_STARTED, transactionInput.toString());
 

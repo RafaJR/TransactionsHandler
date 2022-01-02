@@ -1,5 +1,9 @@
 package com.cibernos.transactionshandler.model;
 
+import javax.validation.constraints.NotNull;
+
+import com.cibernos.transactionshandler.validation.IbanConstraint;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +21,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class TransactionInputDTO {
-
+	
+	@NotNull
+	@IbanConstraint
 	private String account_iban;
 	private String amount;
 	private String fee;

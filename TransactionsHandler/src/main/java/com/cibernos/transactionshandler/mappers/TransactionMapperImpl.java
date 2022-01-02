@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.mapstruct.Mapper;
 
+import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
 import com.cibernos.transactionshandler.entities.Transaction;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 
@@ -30,7 +31,9 @@ public class TransactionMapperImpl implements TransactionMapper {
 	public Optional<Transaction> mapFromTransactionInputDTO(@NotNull TransactionInputDTO transactionInputDTO) {
 
 		return transactionInputDTO != null
-				? Optional.of(Transaction.builder().account_iban(transactionInputDTO.getAccount_iban())
+				? Optional.of(Transaction.builder()
+						.account_iban(transactionInputDTO.getAccount_iban().replace(TransactionsHandlerConstants.SPACE,
+								TransactionsHandlerConstants.BLANK))
 						.amount(Double.valueOf(transactionInputDTO.getAmount()))
 						.description(transactionInputDTO.getDescription())
 						.fee(Double.valueOf(transactionInputDTO.getFee())).date(LocalDateTime.now()).build())
