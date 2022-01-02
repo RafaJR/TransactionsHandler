@@ -14,6 +14,10 @@ import com.cibernos.transactionshandler.model.TransactionInputDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author Rafael Jiménez Reina
+ * @email rafael.jimenez.reina@gmail.com Transactions Mapper Implementation
+ */
 @Service
 @Slf4j
 public class TransactionService implements ITransactionsService {
