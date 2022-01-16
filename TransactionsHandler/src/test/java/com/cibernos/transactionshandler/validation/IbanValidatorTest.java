@@ -17,9 +17,10 @@ class IbanValidatorTest {
 	void ibanValidatorTest1() {
 		
 		// Validation passed if 
-		assertTrue(ibanValidator.isValid("ES00 0000 00 00000000000000", null));
-		assertTrue(ibanValidator.isValid("ES000000 00 00000000000000", null));
-		assertTrue(ibanValidator.isValid("ES00000000 00000000000000", null));
+		assertTrue(ibanValidator.isValid("ES00 0000 0000 00 0000000000", null));
+		assertTrue(ibanValidator.isValid("ES000000 0000 00 0000000000", null));
+		assertTrue(ibanValidator.isValid("ES0000000000 00 0000000000", null));
+		assertTrue(ibanValidator.isValid("ES000000000000 0000000000", null));
 		assertTrue(ibanValidator.isValid("ES0000000000000000000000", null));
 		
 		assertFalse(ibanValidator.isValid("Any", null));
