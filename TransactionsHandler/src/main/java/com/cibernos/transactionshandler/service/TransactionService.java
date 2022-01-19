@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
+import com.cibernos.transactionshandler.dao.AccountsDao;
 import com.cibernos.transactionshandler.dao.TransactionsDao;
+import com.cibernos.transactionshandler.entities.Account;
 import com.cibernos.transactionshandler.entities.Transaction;
 import com.cibernos.transactionshandler.mappers.TransactionMapper;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
@@ -25,6 +27,8 @@ public class TransactionService implements ITransactionsService {
 	private TransactionMapper transactionMapper = Mappers.getMapper(TransactionMapper.class);
 	@Autowired
 	private TransactionsDao transactionsDao;
+	@Autowired
+	private AccountsDao accountsDao;
 
 	/**
 	 * @param transactionInputDTO
@@ -46,10 +50,22 @@ public class TransactionService implements ITransactionsService {
 		if (optTransaction.isPresent()) {
 
 			transaction = optTransaction.get();
-			log.info(TransactionsHandlerConstants.INPUT_TO_ENTITY_TRANSACTION_SUCCESS, transactionInputDTO.toString(),
-					transaction.toString());
-			// If mapping is OK, the DAO is called to save the transaction
-			success = transactionsDao.saveTransaction(optTransaction.get());
+
+			// Setting the transaction account
+			Optional<Account> optAccount = accountsDao.findAccountByIban(transactionInputDTO.getAccount_iban()
+					.replace(TransactionsHandlerConstants.SPACE, TransactionsHandlerConstants.BLANK));
+
+			if (optAccount.isPresent()) {
+
+				transaction.setFk_account(optAccount.get());
+
+				log.info(TransactionsHandlerConstants.INPUT_TO_ENTITY_TRANSACTION_SUCCESS,
+						transactionInputDTO.toString(), transaction.toString());
+				// If mapping is OK, the DAO is called to save the transaction
+				success = transactionsDao.saveTransaction(optTransaction.get());
+			} else {
+				success = false;
+			}
 
 		} else {
 

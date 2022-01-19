@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import javax.validation.constraints.NotNull;
 
-import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
-import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
 import com.cibernos.transactionshandler.entities.Transaction;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 
@@ -15,6 +15,8 @@ import com.cibernos.transactionshandler.model.TransactionInputDTO;
  * @author Rafael Jiménez Reina
  * @email rafael.jimenez.reina@gmail.com Transactions Mapper Implementation
  */
+@Component
+@Validated
 public class TransactionMapperImpl implements TransactionMapper {
 
 	/**
@@ -30,14 +32,16 @@ public class TransactionMapperImpl implements TransactionMapper {
 	@Override
 	public Optional<Transaction> mapFromTransactionInputDTO(@NotNull TransactionInputDTO transactionInputDTO) {
 
-		return transactionInputDTO != null
-				? Optional.of(Transaction.builder()
-						.account_iban(transactionInputDTO.getAccount_iban().replace(TransactionsHandlerConstants.SPACE,
-								TransactionsHandlerConstants.BLANK))
-						.amount(Double.valueOf(transactionInputDTO.getAmount()))
-						.description(transactionInputDTO.getDescription())
-						.fee(Double.valueOf(transactionInputDTO.getFee())).date(LocalDateTime.now()).build())
-				: Optional.empty();
+		if (transactionInputDTO != null) {
+
+			return Optional.of(Transaction.builder().amount(Double.valueOf(transactionInputDTO.getAmount()))
+					.description(transactionInputDTO.getDescription()).fee(Double.valueOf(transactionInputDTO.getFee()))
+					.date(LocalDateTime.now()).build());
+
+		} else {
+			return Optional.empty();
+		}
+
 	}
 
 }

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -34,8 +36,9 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_REFERENCE")
 	private Long reference;
-	@Column(name = "ACCOUNT_IBAN")
-	private String account_iban;
+	@ManyToOne
+	@JoinColumn(name = "FK_ACCOUNT", nullable = false)
+	private Account fk_account;
 	@Column(name = "DATE")
 	private LocalDateTime date;
 	@Column(name = "AMOUNT")
