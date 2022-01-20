@@ -17,7 +17,6 @@ public class IbanValidator implements ConstraintValidator<IbanConstraint, String
 	 */
 	private static final String SPANISH_IBAN_REGEX = "ES\\d{2}[\\s]?\\d{4}[\\s]?\\d{4}[\\s]?\\d{2}[\\s]?\\d{10}";
 
-	// ES31 1465 01 00911708732169
 	/**
 	 * @return (true if IBAN is valid, false in any other case.)
 	 */

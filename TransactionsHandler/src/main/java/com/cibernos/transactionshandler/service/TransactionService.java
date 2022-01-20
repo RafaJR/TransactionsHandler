@@ -2,6 +2,8 @@ package com.cibernos.transactionshandler.service;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,11 +38,12 @@ public class TransactionService implements ITransactionsService {
 	 *         transaction in DB.
 	 */
 	@Override
+	@Transactional
 	public boolean saveTransaction(TransactionInputDTO transactionInputDTO) {
 
 		log.info(TransactionsHandlerConstants.SAVING_TRANSACTION_SERVICE_STARTED, transactionInputDTO.toString());
 
-		Transaction transaction = null;
+		Transaction transaction = Transaction.builder().build();
 		boolean success = false;
 
 		// Mapping the transaction entity from it's input DTO
@@ -57,12 +60,21 @@ public class TransactionService implements ITransactionsService {
 
 			if (optAccount.isPresent()) {
 
-				transaction.setFk_account(optAccount.get());
+				Account account = optAccount.get();
 
-				log.info(TransactionsHandlerConstants.INPUT_TO_ENTITY_TRANSACTION_SUCCESS,
-						transactionInputDTO.toString(), transaction.toString());
+//				transaction.setFk_account(account);
+				success = transactionsDao.saveTransaction(transaction);
+//				transaction.setFk_account(account);			
+				account.getListTransaction().add(transaction);
+
+				success = accountsDao.saveAccount(account);
+
+//				transaction.setFk_account(account);
+//
+//				log.info(TransactionsHandlerConstants.INPUT_TO_ENTITY_TRANSACTION_SUCCESS,
+//						transactionInputDTO.toString(), transaction.toString());
 				// If mapping is OK, the DAO is called to save the transaction
-				success = transactionsDao.saveTransaction(optTransaction.get());
+//				success = transactionsDao.saveTransaction(transaction);
 			} else {
 				success = false;
 			}

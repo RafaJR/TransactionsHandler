@@ -24,8 +24,8 @@ public class AccountsDao {
 
 	/**
 	 * @param account
-	 * @return (true if success, false in other case) Method to save a transaction
-	 *         in DB.
+	 * @return (true if success, false in other case) Method to save an account in
+	 *         DB.
 	 */
 	public boolean saveAccount(Account account) {
 
@@ -46,6 +46,17 @@ public class AccountsDao {
 		log.info(TransactionsHandlerConstants.ACCOUNT_BY_IBAN_QUERY, iban);
 
 		return Optional.ofNullable(accountsDao.findAccountByAccountIban(iban));
+	}
+
+	/**
+	 * @param iban
+	 * @return true if any account with the IBAN code indicated by parameter exists
+	 *         or false in other case.
+	 */
+	public boolean existsAccountByAccountIban(String iban) {
+
+		log.info(TransactionsHandlerConstants.CHECKING_ACCOUNT_EXISTENCE, iban);
+		return accountsDao.existsAccountByAccountIban(iban);
 	}
 
 }

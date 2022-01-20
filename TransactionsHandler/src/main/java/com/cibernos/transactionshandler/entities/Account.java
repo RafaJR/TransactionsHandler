@@ -1,10 +1,11 @@
 package com.cibernos.transactionshandler.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ import lombok.ToString;
  * @email rafael.jimenez.reina@gmail.com Account entity for DB
  */
 
-@Entity
+@Entity(name = "Account")
 @Table(name = "T_ACCOUNT")
 
 @Data
@@ -38,7 +39,7 @@ public class Account {
 	private Long idAccount;
 	@Column(name = "ACCOUNT_IBAN", unique = true, nullable = false)
 	private String accountIban;
-	@OneToMany(mappedBy = "fk_account", fetch = FetchType.LAZY)
-	List<Transaction> listTransaction;
+	@OneToMany(mappedBy = "fk_account", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Transaction> listTransaction = new ArrayList<Transaction>();
 
 }
