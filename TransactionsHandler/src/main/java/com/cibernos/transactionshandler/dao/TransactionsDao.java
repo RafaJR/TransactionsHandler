@@ -26,13 +26,11 @@ public class TransactionsDao {
 	 * @return (true if success, false in other case) Method to save a transaction
 	 *         in DB.
 	 */
-	public boolean saveTransaction(Transaction transaction) {
+	public Optional<Transaction> saveTransaction(Transaction transaction) {
 
 		log.info(TransactionsHandlerConstants.SAVING_TRANSACTION, transaction.toString());
 
-		Optional<Transaction> savedTransaction = Optional.ofNullable(transactionsDao.save(transaction));
-
-		return savedTransaction.isPresent();
+		return Optional.ofNullable(transactionsDao.save(transaction));
 	}
 
 }

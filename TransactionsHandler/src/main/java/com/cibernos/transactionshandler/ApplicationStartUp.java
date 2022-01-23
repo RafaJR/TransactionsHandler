@@ -28,7 +28,7 @@ public class ApplicationStartUp implements ApplicationListener<ApplicationReadyE
 	public void onApplicationEvent(ApplicationReadyEvent event) {
 
 		IntStream.range(1, 20).forEach(
-				n -> accountsDao.saveAccount(Account.builder().accountIban(String.format("ES%022d", n)).build()));
+				n -> accountsDao.saveAccount(Account.builder().accountIban(String.format("ES%022d", n)).balance(Double.valueOf(n)).build()));
 
 	}
 

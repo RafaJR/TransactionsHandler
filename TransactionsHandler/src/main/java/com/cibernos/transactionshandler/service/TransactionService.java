@@ -1,5 +1,6 @@
 package com.cibernos.transactionshandler.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import com.cibernos.transactionshandler.dao.AccountsDao;
 import com.cibernos.transactionshandler.dao.TransactionsDao;
 import com.cibernos.transactionshandler.entities.Account;
 import com.cibernos.transactionshandler.entities.Transaction;
+import com.cibernos.transactionshandler.exceptions.InsufficenBalanceForTransaction;
 import com.cibernos.transactionshandler.mappers.TransactionMapper;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 
@@ -36,10 +38,11 @@ public class TransactionService implements ITransactionsService {
 	 * @param transactionInputDTO
 	 * @return (true if success, false in other case) Service method to save a
 	 *         transaction in DB.
+	 * @throws InsufficenBalanceForTransaction 
 	 */
 	@Override
 	@Transactional
-	public boolean saveTransaction(TransactionInputDTO transactionInputDTO) {
+	public boolean saveTransaction(TransactionInputDTO transactionInputDTO) throws InsufficenBalanceForTransaction {
 
 		log.info(TransactionsHandlerConstants.SAVING_TRANSACTION_SERVICE_STARTED, transactionInputDTO.toString());
 
@@ -61,20 +64,21 @@ public class TransactionService implements ITransactionsService {
 			if (optAccount.isPresent()) {
 
 				Account account = optAccount.get();
+				
+				//DEL1
+				transaction.setFk_account(account);
+				
+				//DEL2
+				optTransaction = transactionsDao.saveTransaction(transaction);
+				transaction = optTransaction.get();
 
-//				transaction.setFk_account(account);
-				success = transactionsDao.saveTransaction(transaction);
-//				transaction.setFk_account(account);			
-				account.getListTransaction().add(transaction);
+				account.updateBalance(transaction);
 
 				success = accountsDao.saveAccount(account);
 
-//				transaction.setFk_account(account);
-//
-//				log.info(TransactionsHandlerConstants.INPUT_TO_ENTITY_TRANSACTION_SUCCESS,
-//						transactionInputDTO.toString(), transaction.toString());
-				// If mapping is OK, the DAO is called to save the transaction
-//				success = transactionsDao.saveTransaction(transaction);
+				log.info(TransactionsHandlerConstants.INPUT_TO_ENTITY_TRANSACTION_SUCCESS,
+						transactionInputDTO.toString(), transaction.toString());
+				
 			} else {
 				success = false;
 			}

@@ -38,7 +38,7 @@ public class Transaction {
 	@Column(name = "ID_REFERENCE")
 	private Long reference;
 	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "FK_ACCOUNT", nullable = false)
+	@JoinColumn(name = "FK_ACCOUNT")
 	private Account fk_account;
 	@Column(name = "DATE")
 	private LocalDateTime date;

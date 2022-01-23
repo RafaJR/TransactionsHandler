@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
+import com.cibernos.transactionshandler.exceptions.InsufficenBalanceForTransaction;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 import com.cibernos.transactionshandler.service.TransactionService;
 
@@ -41,7 +42,13 @@ public class TransactionsHandlerController {
 
 		log.info(TransactionsHandlerConstants.SAVING_TRANSACTION_CALL_STARTED, transactionInput.toString());
 
-		boolean success = transactionService.saveTransaction(transactionInput);
+		boolean success = false;
+		
+		try {
+			success = transactionService.saveTransaction(transactionInput);
+		} catch (InsufficenBalanceForTransaction e) {
+			e.printStackTrace();
+		}
 
 		return success
 				? new ResponseEntity<String>(String.format(TransactionsHandlerConstants.TRANSACTION_SUCCESSFULLY_SAVED_RESPONSE,
