@@ -40,7 +40,16 @@ public class Account {
 //	private List<Transaction> listTransaction = new ArrayList<Transaction>();
 	private Double balance;
 
-	public void updateBalance(Transaction transaction) throws InsufficenBalanceForTransaction {
+	/**
+	 * @param transaction
+	 * @throws InsufficenBalanceForTransaction Overloaded 'setBalance' method to
+	 *                                         calculate the new balance after the
+	 *                                         last transaction. Since a transaction
+	 *                                         is not allowed to result in a
+	 *                                         negative balance, an exception will
+	 *                                         be thrown in this case.
+	 */
+	public void setBalance(Transaction transaction) throws InsufficenBalanceForTransaction {
 
 		Double newBalance = this.balance + transaction.getAmount()
 				- (transaction.getFee() != null ? transaction.getFee() : 0L);

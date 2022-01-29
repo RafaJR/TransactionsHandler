@@ -38,7 +38,7 @@ public class TransactionService implements ITransactionsService {
 	 * @param transactionInputDTO
 	 * @return (true if success, false in other case) Service method to save a
 	 *         transaction in DB.
-	 * @throws InsufficenBalanceForTransaction 
+	 * @throws InsufficenBalanceForTransaction
 	 */
 	@Override
 	@Transactional
@@ -46,47 +46,37 @@ public class TransactionService implements ITransactionsService {
 
 		log.info(TransactionsHandlerConstants.SAVING_TRANSACTION_SERVICE_STARTED, transactionInputDTO.toString());
 
-		Transaction transaction = Transaction.builder().build();
+		Transaction transaction = null;
 		boolean success = false;
 
 		// Mapping the transaction entity from it's input DTO
 		Optional<Transaction> optTransaction = transactionMapper.mapFromTransactionInputDTO(transactionInputDTO);
+		// Finding the transaction account
+		Optional<Account> optAccount = accountsDao.findAccountByIban(transactionInputDTO.getAccount_iban()
+				.replace(TransactionsHandlerConstants.SPACE, TransactionsHandlerConstants.BLANK));
 
-		// Checking the transaction mapping to save the entity
-		if (optTransaction.isPresent()) {
+		// Checking the transaction mapping and the account to save the entity
+		if (optTransaction.isPresent() && optAccount.isPresent()) {
 
+			// Setting the transaction account and the account new balance.
 			transaction = optTransaction.get();
-
-			// Setting the transaction account
-			Optional<Account> optAccount = accountsDao.findAccountByIban(transactionInputDTO.getAccount_iban()
-					.replace(TransactionsHandlerConstants.SPACE, TransactionsHandlerConstants.BLANK));
-
-			if (optAccount.isPresent()) {
-
-				Account account = optAccount.get();
-				
-				//DEL1
-				transaction.setFk_account(account);
-				
-				//DEL2
-				optTransaction = transactionsDao.saveTransaction(transaction);
-				transaction = optTransaction.get();
-
-				account.updateBalance(transaction);
-
-				success = accountsDao.saveAccount(account);
-
-				log.info(TransactionsHandlerConstants.INPUT_TO_ENTITY_TRANSACTION_SUCCESS,
-						transactionInputDTO.toString(), transaction.toString());
-				
-			} else {
-				success = false;
-			}
+			Account account = optAccount.get();			
+			account.setBalance(transaction);
+			transaction.setFk_account(account);
+			
+			log.info(TransactionsHandlerConstants.INPUT_TO_ENTITY_TRANSACTION_SUCCESS, transactionInputDTO.toString(),
+					transaction.toString());
+			
+			// Saving the transaction with it's account
+			optTransaction = transactionsDao.saveTransaction(transaction);
+			
+			// Checking transaction saving process to save the account too. If all it's OK, the entire saving process is successful.
+			success = optTransaction.isPresent() && accountsDao.saveAccount(account);
 
 		} else {
 
-			// If any error happens during the mapping process, the saving service returns
-			// 'false'
+			// If any error happens during the mapping process or finding the account, the
+			// saving service returns 'false'
 			log.error(TransactionsHandlerConstants.INPUT_TO_ENTITY_TRANSACTION_FAILED, transactionInputDTO.toString());
 			success = false;
 		}
