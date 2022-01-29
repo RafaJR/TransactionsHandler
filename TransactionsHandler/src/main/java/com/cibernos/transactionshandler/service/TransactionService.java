@@ -47,6 +47,7 @@ public class TransactionService implements ITransactionsService {
 		log.info(TransactionsHandlerConstants.SAVING_TRANSACTION_SERVICE_STARTED, transactionInputDTO.toString());
 
 		Transaction transaction = null;
+		Account account = null;
 		boolean success = false;
 
 		// Mapping the transaction entity from it's input DTO
@@ -60,7 +61,7 @@ public class TransactionService implements ITransactionsService {
 
 			// Setting the transaction account and the account new balance.
 			transaction = optTransaction.get();
-			Account account = optAccount.get();			
+			account = optAccount.get();			
 			account.setBalance(transaction);
 			transaction.setFk_account(account);
 			
@@ -83,7 +84,7 @@ public class TransactionService implements ITransactionsService {
 
 		// Logging the transaction saving process result
 		if (success) {
-			log.info(TransactionsHandlerConstants.TRANSACTION_SUCCESSFULLY_SAVED, transaction.toString());
+			log.info(TransactionsHandlerConstants.TRANSACTION_SUCCESSFULLY_SAVED, transaction.toString(), account.toString());
 		} else {
 			log.error(TransactionsHandlerConstants.TRANSACTION_SAVING_FAILED, transaction.toString());
 		}
