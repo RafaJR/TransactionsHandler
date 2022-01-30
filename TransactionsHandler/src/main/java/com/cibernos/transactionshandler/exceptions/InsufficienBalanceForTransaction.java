@@ -7,7 +7,7 @@ import com.cibernos.transactionshandler.entities.Transaction;
  * @author Rafael Jiménez Reina
  * @email rafael.jimenez.reina@gmail.com Exception for infeasible transactions.
  */
-public class InsufficenBalanceForTransaction extends Exception {
+public class InsufficienBalanceForTransaction extends Exception {
 
 	private static final long serialVersionUID = 8229945091808821687L;
 	// Custom Exception message
@@ -16,7 +16,7 @@ public class InsufficenBalanceForTransaction extends Exception {
 	/**
 	 * @param errorMessage
 	 */
-	public InsufficenBalanceForTransaction(Account account, Transaction transaction) {
+	public InsufficienBalanceForTransaction(Account account, Transaction transaction) {
 
 		super(String.format(INSUFFICENT_BALANCE_FOR_TRANSACTION, String.format("%1$,.2f", account.getBalance()),
 				transaction.toString()));

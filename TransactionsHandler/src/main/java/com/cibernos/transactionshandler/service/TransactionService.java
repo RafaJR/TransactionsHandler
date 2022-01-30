@@ -13,7 +13,7 @@ import com.cibernos.transactionshandler.dao.AccountsDao;
 import com.cibernos.transactionshandler.dao.TransactionsDao;
 import com.cibernos.transactionshandler.entities.Account;
 import com.cibernos.transactionshandler.entities.Transaction;
-import com.cibernos.transactionshandler.exceptions.InsufficenBalanceForTransaction;
+import com.cibernos.transactionshandler.exceptions.InsufficienBalanceForTransaction;
 import com.cibernos.transactionshandler.mappers.TransactionMapper;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 
@@ -37,11 +37,11 @@ public class TransactionService implements ITransactionsService {
 	 * @param transactionInputDTO
 	 * @return (true if success, false in other case) Service method to save a
 	 *         transaction in DB.
-	 * @throws InsufficenBalanceForTransaction
+	 * @throws InsufficienBalanceForTransaction
 	 */
 	@Override
 	@Transactional
-	public boolean saveTransaction(TransactionInputDTO transactionInputDTO) throws InsufficenBalanceForTransaction {
+	public boolean saveTransaction(TransactionInputDTO transactionInputDTO) throws InsufficienBalanceForTransaction {
 
 		log.info(TransactionsHandlerConstants.SAVING_TRANSACTION_SERVICE_STARTED, transactionInputDTO.toString());
 

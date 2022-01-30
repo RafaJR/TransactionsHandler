@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import com.cibernos.transactionshandler.exceptions.InsufficenBalanceForTransaction;
+import com.cibernos.transactionshandler.exceptions.InsufficienBalanceForTransaction;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,20 +45,20 @@ public class Account {
 
 	/**
 	 * @param transaction
-	 * @throws InsufficenBalanceForTransaction Overloaded 'setBalance' method to
+	 * @throws InsufficienBalanceForTransaction Overloaded 'setBalance' method to
 	 *                                         calculate the new balance after the
 	 *                                         last transaction. Since a transaction
 	 *                                         is not allowed to result in a
 	 *                                         negative balance, an exception will
 	 *                                         be thrown in this case.
 	 */
-	public void setBalance(Transaction transaction) throws InsufficenBalanceForTransaction {
+	public void setBalance(Transaction transaction) throws InsufficienBalanceForTransaction {
 
 		Double newBalance = this.balance + transaction.getAmount()
 				- (transaction.getFee() != null ? transaction.getFee() : 0L);
 
 		if (newBalance < 0) {
-			throw new InsufficenBalanceForTransaction(this, transaction);
+			throw new InsufficienBalanceForTransaction(this, transaction);
 		} else {
 			this.balance = newBalance;
 		}
