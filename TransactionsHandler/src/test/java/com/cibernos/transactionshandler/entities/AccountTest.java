@@ -14,6 +14,8 @@ import com.cibernos.transactionshandler.exceptions.InsufficienBalanceForTransact
 class AccountTest {
 
 	private static final String INSUFFICENT_BALANCE_FOR_TRANSACTION = "The account balance '%s' is insufficent for the transaction '%s'.";
+	private static final String IBAN = "ES0000000000000000000001";
+	private static final Double BALANCE = 1000D;
 
 	/**
 	 * @throws InsufficienBalanceForTransaction Test for account balance update due
@@ -22,7 +24,7 @@ class AccountTest {
 	@Test
 	void setBalanceTestValidPositiveTransaction() throws InsufficienBalanceForTransaction {
 
-		Account account = Account.builder().accountIban("ES0000000000000000000001").balance(1000D).build();
+		Account account = Account.builder().accountIban(IBAN).balance(BALANCE).build();
 
 		Transaction transaction = Transaction.builder().amount(10D).fee(1D).fk_account(account).build();
 
@@ -39,7 +41,7 @@ class AccountTest {
 	@Test
 	void setBalanceTestValidPositiveTransactionWithNoFee() throws InsufficienBalanceForTransaction {
 
-		Account account = Account.builder().accountIban("ES0000000000000000000001").balance(1000D).build();
+		Account account = Account.builder().accountIban(IBAN).balance(BALANCE).build();
 
 		Transaction transaction = Transaction.builder().amount(10D).fk_account(account).build();
 
@@ -55,7 +57,7 @@ class AccountTest {
 	@Test
 	void setBalanceTestValidNegativeTransaction() throws InsufficienBalanceForTransaction {
 
-		Account account = Account.builder().accountIban("ES0000000000000000000001").balance(1000D).build();
+		Account account = Account.builder().accountIban(IBAN).balance(BALANCE).build();
 
 		Transaction transaction = Transaction.builder().amount(-10D).fee(1D).fk_account(account).build();
 
@@ -72,7 +74,7 @@ class AccountTest {
 	@Test
 	void setBalanceTestValidNegativeTransactionWithNoFee() throws InsufficienBalanceForTransaction {
 
-		Account account = Account.builder().accountIban("ES0000000000000000000001").balance(1000D).build();
+		Account account = Account.builder().accountIban(IBAN).balance(BALANCE).build();
 
 		Transaction transaction = Transaction.builder().amount(-10D).fk_account(account).build();
 
@@ -89,7 +91,7 @@ class AccountTest {
 	@Test()
 	void setBalanceTestNotValidNegativeTransaction() throws InsufficienBalanceForTransaction {
 
-		Account account = Account.builder().accountIban("ES0000000000000000000001").balance(1000D).build();
+		Account account = Account.builder().accountIban(IBAN).balance(BALANCE).build();
 
 		Transaction transaction = Transaction.builder().amount(-980D).fee(21D).fk_account(account).build();
 
@@ -113,7 +115,7 @@ class AccountTest {
 	@Test()
 	void setBalanceTestNotValidNegativeTransactionWithNoFee() throws InsufficienBalanceForTransaction {
 
-		Account account = Account.builder().accountIban("ES0000000000000000000001").balance(1000D).build();
+		Account account = Account.builder().accountIban(IBAN).balance(BALANCE).build();
 
 		Transaction transaction = Transaction.builder().amount(-1001D).fk_account(account).build();
 

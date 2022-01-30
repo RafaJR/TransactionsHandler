@@ -11,7 +11,7 @@ public class InsufficienBalanceForTransaction extends Exception {
 
 	private static final long serialVersionUID = 8229945091808821687L;
 	// Custom Exception message
-	public static final String INSUFFICENT_BALANCE_FOR_TRANSACTION = "The account balance '%s' is insufficent for the transaction '%s'.";
+	private static final String INSUFFICENT_BALANCE_FOR_TRANSACTION = "The account balance '%s' is insufficent for the transaction '%s'.";
 
 	/**
 	 * @param errorMessage
