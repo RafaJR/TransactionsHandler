@@ -1,6 +1,5 @@
 package com.cibernos.transactionshandler.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -61,17 +60,18 @@ public class TransactionService implements ITransactionsService {
 
 			// Setting the transaction account and the account new balance.
 			transaction = optTransaction.get();
-			account = optAccount.get();			
+			account = optAccount.get();
 			account.setBalance(transaction);
 			transaction.setFk_account(account);
-			
+
 			log.info(TransactionsHandlerConstants.INPUT_TO_ENTITY_TRANSACTION_SUCCESS, transactionInputDTO.toString(),
 					transaction.toString());
-			
+
 			// Saving the transaction with it's account
 			optTransaction = transactionsDao.saveTransaction(transaction);
-			
-			// Checking transaction saving process to save the account too. If all it's OK, the entire saving process is successful.
+
+			// Checking transaction saving process to save the account too. If all it's OK,
+			// the entire saving process is successful.
 			success = optTransaction.isPresent() && accountsDao.saveAccount(account);
 
 		} else {
@@ -84,7 +84,8 @@ public class TransactionService implements ITransactionsService {
 
 		// Logging the transaction saving process result
 		if (success) {
-			log.info(TransactionsHandlerConstants.TRANSACTION_SUCCESSFULLY_SAVED, transaction.toString(), account.toString());
+			log.info(TransactionsHandlerConstants.TRANSACTION_SUCCESSFULLY_SAVED, transaction.toString(),
+					account.toString());
 		} else {
 			log.error(TransactionsHandlerConstants.TRANSACTION_SAVING_FAILED, transaction.toString());
 		}

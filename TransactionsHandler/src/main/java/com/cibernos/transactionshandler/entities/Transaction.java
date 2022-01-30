@@ -38,15 +38,15 @@ public class Transaction {
 	@Column(name = "ID_REFERENCE")
 	private Long reference;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FK_ACCOUNT")
+	@JoinColumn(name = "FK_ACCOUNT", nullable = false)
 	private Account fk_account;
-	@Column(name = "DATE")
+	@Column(name = "DATE", nullable = false)
 	private LocalDateTime date;
-	@Column(name = "AMOUNT")
+	@Column(name = "AMOUNT", nullable = false)
 	private Double amount;
 	@Column(name = "FEE")
 	private Double fee;
-	@Column(name = "DESCRIPTION")
+	@Column(name = "DESCRIPTION", length = 100)
 	private String description;
 
 }

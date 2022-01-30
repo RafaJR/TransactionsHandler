@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import com.cibernos.transactionshandler.exceptions.InsufficenBalanceForTransaction;
 
@@ -34,10 +35,12 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_ACCOUNT")
 	private Long idAccount;
-	@Column(name = "ACCOUNT_IBAN", unique = true, nullable = false)
+	@Column(name = "ACCOUNT_IBAN", unique = true, nullable = false, length = 24)
+	@Size(min = 24, max = 24)
 	private String accountIban;
 //	@OneToMany(mappedBy = "fk_account", cascade = CascadeType.ALL, orphanRemoval = true)
 //	private List<Transaction> listTransaction = new ArrayList<Transaction>();
+	@Column(name = "BALANCE", nullable = false)
 	private Double balance;
 
 	/**
