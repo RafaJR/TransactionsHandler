@@ -29,12 +29,12 @@ class DoubleValueAsStringValidatorTest {
 		assertTrue(doubleValueAsStringValidator.isValid("+0.75", null));
 		assertTrue(doubleValueAsStringValidator.isValid("0.75", null));
 		assertTrue(doubleValueAsStringValidator.isValid("9837458972397856875467464534523465344534.98", null));
+		assertTrue(doubleValueAsStringValidator.isValid(null, null));
 
 		assertFalse(doubleValueAsStringValidator.isValid("+0.000000000000001", null));
 		assertFalse(doubleValueAsStringValidator.isValid("a", null));
 		assertFalse(doubleValueAsStringValidator.isValid("5 5", null));
 		assertFalse(doubleValueAsStringValidator.isValid("", null));
-		assertFalse(doubleValueAsStringValidator.isValid(null, null));
 
 	}
 

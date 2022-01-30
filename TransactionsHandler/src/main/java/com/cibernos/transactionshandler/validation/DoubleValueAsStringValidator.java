@@ -21,7 +21,7 @@ public class DoubleValueAsStringValidator implements ConstraintValidator<DoubleV
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		// Support method call for operators validation
-		return value != null && Pattern.compile(regexDouble).matcher(value).matches();
+		return value == null || Pattern.compile(regexDouble).matcher(value).matches();
 	}
 
 }

@@ -46,7 +46,7 @@ public class Transaction {
 	private Double amount;
 	@Column(name = "FEE")
 	private Double fee;
-	@Column(name = "DESCRIPTION", length = 100)
+	@Column(name = "DESCRIPTION", length = 150)
 	private String description;
 
 }

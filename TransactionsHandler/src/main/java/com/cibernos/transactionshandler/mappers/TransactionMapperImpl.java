@@ -34,9 +34,11 @@ public class TransactionMapperImpl implements TransactionMapper {
 
 		if (transactionInputDTO != null) {
 
+			// Setting the fee to 0 if it's null.
+			Double fee = transactionInputDTO.getFee() != null ? Double.valueOf(transactionInputDTO.getFee()) : 0D;
+
 			return Optional.of(Transaction.builder().amount(Double.valueOf(transactionInputDTO.getAmount()))
-					.description(transactionInputDTO.getDescription()).fee(Double.valueOf(transactionInputDTO.getFee()))
-					.date(LocalDateTime.now()).build());
+					.description(transactionInputDTO.getDescription()).fee(fee).date(LocalDateTime.now()).build());
 
 		} else {
 			return Optional.empty();

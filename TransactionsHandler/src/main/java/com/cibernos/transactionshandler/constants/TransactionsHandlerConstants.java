@@ -25,6 +25,7 @@ public class TransactionsHandlerConstants {
 
 	// Input constraints messages
 	public static final String NOT_NULL_TRANSACTION = "The transaction to save can't be null.";
+	public static final String NOT_NULL_AMOUNT = "The transaction amount to save can't be null.";
 
 	// Usefull values for data format
 	public static final String BLANK = "";

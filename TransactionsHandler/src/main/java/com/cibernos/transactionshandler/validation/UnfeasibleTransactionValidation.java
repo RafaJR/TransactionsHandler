@@ -41,7 +41,7 @@ public class UnfeasibleTransactionValidation
 			// Values to calculate the new balance
 			Double balance = optAccount.get().getBalance();
 			Double amount = Double.valueOf(transactionInputDTO.getAmount());
-			Double fee = Double.valueOf(transactionInputDTO.getFee());
+			Double fee = transactionInputDTO.getFee() != null ? Double.valueOf(transactionInputDTO.getFee()) : 0D;
 			
 			// Calculating the new balance to validate the current one
 			validTransaction = balance + amount	- (fee != null ? fee : 0L) >= 0;
