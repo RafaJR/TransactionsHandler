@@ -12,15 +12,15 @@ import javax.validation.Payload;
 /**
  * @author Rafael Jiménez Reina
  * @email rafael.jimenez.reina@gmail.com
- * Interface for operators (decimal numbers) validation constraint.
- * @implementations: DoubleValueAsStringValidator
+ * Interface for unfeasible transactions
+ * @implementations: UnfeasibleTransactionValidation
  */
 @Documented
-@Constraint(validatedBy = DoubleValueAsStringValidator.class)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Constraint(validatedBy = UnfeasibleTransactionValidation.class)
+@Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DoubleValueAsStringConstraint {
-    String message() default "A monetary cipher must be set as a real number with no more than two decimals.";
+public @interface UnfasibleTransactionConstraint {
+    String message() default "The account has no balance enough for the transaction, so it's unfeasible.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

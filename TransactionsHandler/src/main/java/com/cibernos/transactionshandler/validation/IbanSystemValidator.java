@@ -5,6 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
 import com.cibernos.transactionshandler.dao.AccountsDao;
 
 /**
@@ -23,7 +24,8 @@ public class IbanSystemValidator implements ConstraintValidator<IbanSystemConstr
 	@Override
 	public boolean isValid(String iban, ConstraintValidatorContext context) {
 
-		return accountsDao.existsAccountByAccountIban(iban);
+		return accountsDao.existsAccountByAccountIban(
+				iban.replace(TransactionsHandlerConstants.SPACE, TransactionsHandlerConstants.BLANK));
 	}
 
 }

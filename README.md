@@ -77,6 +77,8 @@ Http Request description:
 	- [Optional]description: the description of the transaction.
 		* Constraints:
 			- It must no contain more than 150 characters.
+	General Constraint:
+		If the transaction is negative, the account must have balance enough to support it, taking care that the fee must be deduced too.
 
 Examples of valid transaction inputs for saving:
 

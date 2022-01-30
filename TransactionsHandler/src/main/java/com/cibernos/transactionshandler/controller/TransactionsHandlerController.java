@@ -18,6 +18,7 @@ import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
 import com.cibernos.transactionshandler.exceptions.InsufficienBalanceForTransaction;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 import com.cibernos.transactionshandler.service.TransactionService;
+import com.cibernos.transactionshandler.validation.UnfasibleTransactionConstraint;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,12 +39,12 @@ public class TransactionsHandlerController {
 	@PostMapping("/saveTransaction")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<String> saveTransaction(
-			@RequestBody @NotNull(message = TransactionsHandlerConstants.NOT_NULL_TRANSACTION) @Valid TransactionInputDTO transactionInput) {
+			@RequestBody @NotNull(message = TransactionsHandlerConstants.NOT_NULL_TRANSACTION) @Valid @UnfasibleTransactionConstraint TransactionInputDTO transactionInput) {
 
 		log.info(TransactionsHandlerConstants.SAVING_TRANSACTION_CALL_STARTED, transactionInput.toString());
 
 		boolean success = false;
-		
+
 		try {
 			success = transactionService.saveTransaction(transactionInput);
 		} catch (InsufficienBalanceForTransaction e) {
@@ -51,10 +52,14 @@ public class TransactionsHandlerController {
 		}
 
 		return success
-				? new ResponseEntity<String>(String.format(TransactionsHandlerConstants.TRANSACTION_SUCCESSFULLY_SAVED_RESPONSE,
-						transactionInput.toString()), HttpStatus.OK)
-				: new ResponseEntity<String>(String.format(TransactionsHandlerConstants.TRANSACTION_SAVING_FAILED_RESPONSE,
-						transactionInput.toString()), HttpStatus.INTERNAL_SERVER_ERROR);
+				? new ResponseEntity<String>(
+						String.format(TransactionsHandlerConstants.TRANSACTION_SUCCESSFULLY_SAVED_RESPONSE,
+								transactionInput.toString()),
+						HttpStatus.OK)
+				: new ResponseEntity<String>(
+						String.format(TransactionsHandlerConstants.TRANSACTION_SAVING_FAILED_RESPONSE,
+								transactionInput.toString()),
+						HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@GetMapping("/getTransactionStatus")

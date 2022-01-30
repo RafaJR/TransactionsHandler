@@ -12,15 +12,15 @@ import javax.validation.Payload;
 /**
  * @author Rafael Jiménez Reina
  * @email rafael.jimenez.reina@gmail.com
- * Interface for operators (decimal numbers) validation constraint.
- * @implementations: DoubleValueAsStringValidator
+ * Interface for Fee field validation
+ * @implementations: FeeValidator
  */
 @Documented
-@Constraint(validatedBy = DoubleValueAsStringValidator.class)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Constraint(validatedBy = FeeValidator.class)
+@Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DoubleValueAsStringConstraint {
-    String message() default "A monetary cipher must be set as a real number with no more than two decimals.";
+public @interface FeeConstraint {
+    String message() default "The transaction fee must be minor than it's amount.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

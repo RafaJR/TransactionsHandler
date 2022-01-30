@@ -2,6 +2,7 @@ package com.cibernos.transactionshandler.model;
 
 import javax.validation.constraints.NotNull;
 
+import com.cibernos.transactionshandler.validation.DoubleValueAsStringConstraint;
 import com.cibernos.transactionshandler.validation.IbanConstraint;
 import com.cibernos.transactionshandler.validation.IbanSystemConstraint;
 
@@ -27,7 +28,9 @@ public class TransactionInputDTO {
 	@IbanConstraint
 	@IbanSystemConstraint
 	private String account_iban;
+	@DoubleValueAsStringConstraint
 	private String amount;
+	@DoubleValueAsStringConstraint
 	private String fee;
 	private String description;
 
