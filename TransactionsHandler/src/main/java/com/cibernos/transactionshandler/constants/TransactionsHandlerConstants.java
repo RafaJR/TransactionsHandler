@@ -16,6 +16,7 @@ public class TransactionsHandlerConstants {
 	public static final String TRANSACTION_SUCCESSFULLY_SAVED = "The transaction '{}' has been successfully saved and its account '{}' has been updated.";
 	public static final String TRANSACTION_SAVING_FAILED = "An error happened when trying to save the transaction '{}'.";
 	public static final String SAVING_TRANSACTION_CALL_STARTED = "Endpoint call to save transaction '{}' done.";
+	public static final String SAVING_ACCOUNT_CALL_STARTED = "Endpoint call to save transaction '{}' done.";
 	public static final String ACCOUNT_BY_IBAN_QUERY = "Throwing query to find the account through its IBAN code '{}'.";
 	public static final String CHECKING_ACCOUNT_EXISTENCE = "Checking if account wit IBAN '{}' exists in DB.";
 
@@ -26,6 +27,7 @@ public class TransactionsHandlerConstants {
 	// Input constraints messages
 	public static final String NOT_NULL_TRANSACTION = "The transaction to save can't be null.";
 	public static final String NOT_NULL_AMOUNT = "The transaction amount to save can't be null.";
+	public static final String NOT_NULL_BALANCE = "The account balance to save can't be null.";
 
 	// Usefull values for data format
 	public static final String BLANK = "";

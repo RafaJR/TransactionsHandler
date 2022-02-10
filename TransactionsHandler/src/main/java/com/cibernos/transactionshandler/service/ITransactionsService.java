@@ -1,6 +1,7 @@
 package com.cibernos.transactionshandler.service;
 
 import com.cibernos.transactionshandler.exceptions.InsufficienBalanceForTransaction;
+import com.cibernos.transactionshandler.model.AccountInputDTO;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 
 /**
@@ -16,5 +17,6 @@ public interface ITransactionsService {
 	 * @throws InsufficienBalanceForTransaction 
 	 */
 	public boolean saveTransaction(TransactionInputDTO transactionInputDTO) throws InsufficienBalanceForTransaction;
+	public boolean saveAccount(AccountInputDTO accountInputDto);
 
 }

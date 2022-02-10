@@ -15,6 +15,7 @@ import com.cibernos.transactionshandler.entities.Account;
 import com.cibernos.transactionshandler.entities.Transaction;
 import com.cibernos.transactionshandler.exceptions.InsufficienBalanceForTransaction;
 import com.cibernos.transactionshandler.mappers.TransactionMapper;
+import com.cibernos.transactionshandler.model.AccountInputDTO;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -92,6 +93,12 @@ public class TransactionService implements ITransactionsService {
 
 		return success;
 
+	}
+
+	@Override
+	public boolean saveAccount(AccountInputDTO accountInputDto) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

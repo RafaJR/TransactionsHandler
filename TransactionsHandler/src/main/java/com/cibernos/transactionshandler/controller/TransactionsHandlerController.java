@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
 import com.cibernos.transactionshandler.exceptions.InsufficienBalanceForTransaction;
+import com.cibernos.transactionshandler.model.AccountInputDTO;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 import com.cibernos.transactionshandler.service.TransactionService;
 import com.cibernos.transactionshandler.validation.UnfasibleTransactionConstraint;
@@ -61,7 +62,18 @@ public class TransactionsHandlerController {
 								transactionInput.toString()),
 						HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	@PostMapping("/saveAccount")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<String> saveAccount(@NotNull @Valid AccountInputDTO accountInputDTO) {
+		
+		log.info(TransactionsHandlerConstants.SAVING_ACCOUNT_CALL_STARTED, accountInputDTO.toString());
 
+		boolean success = false;
+		
+		return null;
+	}
+	
 	@GetMapping("/getTransactionStatus")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> getTransactionStatus(@NotNull Long treference) {
