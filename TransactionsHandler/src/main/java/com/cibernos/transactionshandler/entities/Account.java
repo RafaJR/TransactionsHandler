@@ -32,7 +32,7 @@ import lombok.ToString;
 public class Account {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID_ACCOUNT")
 	private Long idAccount;
 	@Column(name = "ACCOUNT_IBAN", unique = true, nullable = false, length = 24)
