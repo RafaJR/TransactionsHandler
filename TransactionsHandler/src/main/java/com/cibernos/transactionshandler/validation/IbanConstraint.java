@@ -20,7 +20,7 @@ import javax.validation.Payload;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IbanConstraint {
-    String message() default "The IBAN for a bank account is made up of two capital letters and ten numeric characters.";
+    String message() default "The IBAN for a bank account is made up of two capital letters and twenty numeric characters.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

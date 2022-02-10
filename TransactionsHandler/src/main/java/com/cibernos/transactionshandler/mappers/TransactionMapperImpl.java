@@ -8,7 +8,10 @@ import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
+import com.cibernos.transactionshandler.entities.Account;
 import com.cibernos.transactionshandler.entities.Transaction;
+import com.cibernos.transactionshandler.model.AccountInputDTO;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 
 /**
@@ -16,8 +19,7 @@ import com.cibernos.transactionshandler.model.TransactionInputDTO;
  * @email rafael.jimenez.reina@gmail.com Transactions Mapper Implementation
  */
 @Component
-@Validated
-public class TransactionMapperImpl implements TransactionMapper {
+public class TransactionMapperImpl implements ITransactionMapper {
 
 	/**
 	 * @param TransactionInputDTO
@@ -30,7 +32,7 @@ public class TransactionMapperImpl implements TransactionMapper {
 	 * 
 	 */
 	@Override
-	public Optional<Transaction> mapFromTransactionInputDTO(@NotNull TransactionInputDTO transactionInputDTO) {
+	public Optional<Transaction> mapFromTransactionInputDTO(TransactionInputDTO transactionInputDTO) {
 
 		if (transactionInputDTO != null) {
 
@@ -44,6 +46,25 @@ public class TransactionMapperImpl implements TransactionMapper {
 			return Optional.empty();
 		}
 
+	}
+
+	/**
+	 * @param AccountInputDTO
+	 * @return Optional<Account> Mapping from AccountInputDTO to Account
+	 */
+	@Override
+	public Optional<Account> mapAccountFromAccountInputDTO(AccountInputDTO accountInputDTO) {
+
+		if (accountInputDTO != null) {
+
+			return Optional.of(Account.builder()
+					.accountIban(accountInputDTO.getAccount_iban().replace(TransactionsHandlerConstants.SPACE,
+							TransactionsHandlerConstants.BLANK))
+					.balance(Double.valueOf(accountInputDTO.getBalance())).build());
+
+		} else {
+			return Optional.empty();
+		}
 	}
 
 }

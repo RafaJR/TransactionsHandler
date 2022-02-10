@@ -18,7 +18,7 @@ import com.cibernos.transactionshandler.model.TransactionInputDTO;
  */
 class TransactionMapperImplTest {
 
-	private TransactionMapper transactionMapper = Mappers.getMapper(TransactionMapper.class);
+	private ITransactionMapper transactionMapper = Mappers.getMapper(ITransactionMapper.class);
 
 	/**
 	 * Test check if mapping from TransactionInputDTO to Transaction entity is

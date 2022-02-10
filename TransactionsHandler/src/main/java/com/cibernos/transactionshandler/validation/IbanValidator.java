@@ -23,7 +23,7 @@ public class IbanValidator implements ConstraintValidator<IbanConstraint, String
 	@Override
 	public boolean isValid(String IBAN, ConstraintValidatorContext context) {
 
-		return !(IBAN != null && IBAN.trim().isEmpty()) && IBAN.matches(SPANISH_IBAN_REGEX);
+		return IBAN != null && IBAN.matches(SPANISH_IBAN_REGEX);
 	}
 
 }

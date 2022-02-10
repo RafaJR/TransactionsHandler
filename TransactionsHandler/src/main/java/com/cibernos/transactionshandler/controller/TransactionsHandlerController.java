@@ -37,6 +37,11 @@ public class TransactionsHandlerController {
 	@Autowired
 	private TransactionService transactionService;
 
+	/**
+	 * @param transactionInput
+	 * @return String as HTTP response indicating if process has been successful.
+	 *         End-point method to save a transaction.
+	 */
 	@PostMapping("/saveTransaction")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<String> saveTransaction(
@@ -62,18 +67,30 @@ public class TransactionsHandlerController {
 								transactionInput.toString()),
 						HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
+	/**
+	 * @param accountInputDTO
+	 * @return String as HTTP response indicating if process has been successful.
+	 *         End-point method to save an account.
+	 */
 	@PostMapping("/saveAccount")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<String> saveAccount(@NotNull @Valid AccountInputDTO accountInputDTO) {
-		
+	public ResponseEntity<String> saveAccount(
+			@RequestBody @NotNull(message = TransactionsHandlerConstants.NOT_NULL_ACCOUNT) @Valid AccountInputDTO accountInputDTO) {
+
 		log.info(TransactionsHandlerConstants.SAVING_ACCOUNT_CALL_STARTED, accountInputDTO.toString());
 
-		boolean success = false;
-		
-		return null;
+		boolean success = transactionService.saveAccount(accountInputDTO);
+
+		return success
+				? new ResponseEntity<String>(
+						String.format(TransactionsHandlerConstants.ACCOUNT_SUCCESSFULLY_SAVED_RESPONSE,
+								accountInputDTO.toString()),
+						HttpStatus.OK)
+				: new ResponseEntity<String>(String.format(TransactionsHandlerConstants.ACCOUNT_SAVING_FAILED_RESPONSE,
+						accountInputDTO.toString()), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	@GetMapping("/getTransactionStatus")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> getTransactionStatus(@NotNull Long treference) {

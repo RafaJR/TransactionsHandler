@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import com.cibernos.transactionshandler.dao.TransactionsDao;
 import com.cibernos.transactionshandler.entities.Account;
 import com.cibernos.transactionshandler.entities.Transaction;
 import com.cibernos.transactionshandler.exceptions.InsufficienBalanceForTransaction;
-import com.cibernos.transactionshandler.mappers.TransactionMapper;
+import com.cibernos.transactionshandler.mappers.TransactionMapperImpl;
 import com.cibernos.transactionshandler.model.AccountInputDTO;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 
@@ -28,7 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TransactionService implements ITransactionsService {
 
-	private TransactionMapper transactionMapper = Mappers.getMapper(TransactionMapper.class);
+	@Autowired
+	private TransactionMapperImpl transactionMapper;
 	@Autowired
 	private TransactionsDao transactionsDao;
 	@Autowired
@@ -95,10 +95,21 @@ public class TransactionService implements ITransactionsService {
 
 	}
 
+	/**
+	 * @param accountInputDto
+	 * @return (true if success, false in other case) Service method to save an
+	 *         account in DB.
+	 */
 	@Override
 	public boolean saveAccount(AccountInputDTO accountInputDto) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		log.info(TransactionsHandlerConstants.SAVING_ACCOUNT_SERVICE_STARTED, accountInputDto.toString());
+
+		// Mapping the account entity from it's input DTO
+		Optional<Account> optAccount = transactionMapper.mapAccountFromAccountInputDTO(accountInputDto);
+		
+		// Checking account entity and saving it
+		return optAccount.isPresent() && accountsDao.saveAccount(optAccount.get());
 	}
 
 }
