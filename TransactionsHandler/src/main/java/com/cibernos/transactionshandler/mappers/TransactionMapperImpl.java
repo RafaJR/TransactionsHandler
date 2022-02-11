@@ -3,10 +3,7 @@ package com.cibernos.transactionshandler.mappers;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 
 import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
 import com.cibernos.transactionshandler.entities.Account;

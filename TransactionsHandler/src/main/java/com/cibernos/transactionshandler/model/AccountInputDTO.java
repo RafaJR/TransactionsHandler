@@ -3,9 +3,8 @@ package com.cibernos.transactionshandler.model;
 import javax.validation.constraints.NotNull;
 
 import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
-import com.cibernos.transactionshandler.model.TransactionInputDTO.TransactionInputDTOBuilder;
-import com.cibernos.transactionshandler.validation.DoubleValueAsStringConstraint;
 import com.cibernos.transactionshandler.validation.IbanConstraint;
+import com.cibernos.transactionshandler.validation.PositiveDoubleValueAsStringConstrain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +28,7 @@ public class AccountInputDTO {
 	@IbanConstraint
 	private String account_iban;
 	@NotNull(message = TransactionsHandlerConstants.NOT_NULL_BALANCE)
-	@DoubleValueAsStringConstraint
+	@PositiveDoubleValueAsStringConstrain
 	private String balance;
 
 }

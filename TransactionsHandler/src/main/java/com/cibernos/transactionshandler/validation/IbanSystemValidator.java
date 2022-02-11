@@ -24,7 +24,7 @@ public class IbanSystemValidator implements ConstraintValidator<IbanSystemConstr
 	@Override
 	public boolean isValid(String iban, ConstraintValidatorContext context) {
 
-		return accountsDao.existsAccountByAccountIban(
+		return iban != null && accountsDao.existsAccountByAccountIban(
 				iban.replace(TransactionsHandlerConstants.SPACE, TransactionsHandlerConstants.BLANK));
 	}
 

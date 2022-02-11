@@ -9,18 +9,22 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
+
 /**
  * @author Rafael Jiménez Reina
- * @email rafael.jimenez.reina@gmail.com
- * Interface for operators (decimal numbers) validation constraint.
+ * @email rafael.jimenez.reina@gmail.com Interface for operators (decimal
+ *        numbers) validation constraint.
  * @implementations: DoubleValueAsStringValidator
  */
 @Documented
 @Constraint(validatedBy = DoubleValueAsStringValidator.class)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DoubleValueAsStringConstraint {
-    String message() default "A monetary cipher must be set as a real number with no more than two decimals.";
-    Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default {};
+	String message() default TransactionsHandlerConstants.MONETARY_CIPHER;
+
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
 }

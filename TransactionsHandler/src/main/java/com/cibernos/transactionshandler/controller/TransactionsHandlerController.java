@@ -45,7 +45,7 @@ public class TransactionsHandlerController {
 	@PostMapping("/saveTransaction")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<String> saveTransaction(
-			@RequestBody @NotNull(message = TransactionsHandlerConstants.NOT_NULL_TRANSACTION) @Valid @UnfasibleTransactionConstraint TransactionInputDTO transactionInput) {
+			@Valid @NotNull(message = TransactionsHandlerConstants.NOT_NULL_TRANSACTION) @UnfasibleTransactionConstraint @RequestBody TransactionInputDTO transactionInput) {
 
 		log.info(TransactionsHandlerConstants.SAVING_TRANSACTION_CALL_STARTED, transactionInput.toString());
 
@@ -76,7 +76,7 @@ public class TransactionsHandlerController {
 	@PostMapping("/saveAccount")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<String> saveAccount(
-			@RequestBody @NotNull(message = TransactionsHandlerConstants.NOT_NULL_ACCOUNT) @Valid AccountInputDTO accountInputDTO) {
+			@Valid @RequestBody @NotNull(message = TransactionsHandlerConstants.NOT_NULL_ACCOUNT) AccountInputDTO accountInputDTO) {
 
 		log.info(TransactionsHandlerConstants.SAVING_ACCOUNT_CALL_STARTED, accountInputDTO.toString());
 

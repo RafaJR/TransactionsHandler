@@ -9,18 +9,22 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
+
 /**
  * @author Rafael Jiménez Reina
- * @email rafael.jimenez.reina@gmail.com
- * Interface for Description field validation
+ * @email rafael.jimenez.reina@gmail.com Interface for Description field
+ *        validation
  * @implementations: DescriptionValidator
  */
 @Documented
 @Constraint(validatedBy = DescriptionValidator.class)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DescriptionConstraint {
-    String message() default "The transaction description can't no contain more than 150 characters.";
-    Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default {};
+	String message() default TransactionsHandlerConstants.DESCRIPTION_MAX_SIZE;
+
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
 }

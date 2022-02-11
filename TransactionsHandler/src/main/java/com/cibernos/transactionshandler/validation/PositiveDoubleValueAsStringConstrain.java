@@ -13,15 +13,16 @@ import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
 
 /**
  * @author Rafael Jiménez Reina
- * @email rafael.jimenez.reina@gmail.com Interface for IBAN field validation
- * @implementations: IbanValidator
+ * @email rafael.jimenez.reina@gmail.com Interface for operators (decimal
+ *        numbers) validation constraint.
+ * @implementations: DoubleValueAsStringValidator
  */
 @Documented
-@Constraint(validatedBy = IbanValidator.class)
+@Constraint(validatedBy = PositiveDoubleValueAsStringValidator.class)
 @Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface IbanConstraint {
-	String message() default TransactionsHandlerConstants.IBAN_CODE_FORMAT;
+public @interface PositiveDoubleValueAsStringConstrain {
+	String message() default TransactionsHandlerConstants.POSITIVE_ACCOUNT_BALANCE;
 
 	Class<?>[] groups() default {};
 

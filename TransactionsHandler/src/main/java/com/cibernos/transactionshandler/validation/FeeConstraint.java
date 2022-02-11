@@ -9,18 +9,21 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
+
 /**
  * @author Rafael Jiménez Reina
- * @email rafael.jimenez.reina@gmail.com
- * Interface for Fee field validation
+ * @email rafael.jimenez.reina@gmail.com Interface for Fee field validation
  * @implementations: FeeValidator
  */
 @Documented
 @Constraint(validatedBy = FeeValidator.class)
-@Target({ElementType.PARAMETER})
+@Target({ ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FeeConstraint {
-    String message() default "The transaction fee must be minor than it's amount.";
-    Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default {};
+	String message() default TransactionsHandlerConstants.TRANSACTION_LESS_THAN_AMOUNT;
+
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
 }

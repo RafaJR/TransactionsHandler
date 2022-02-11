@@ -26,6 +26,53 @@ Use this command at the "target" folder:
 So when the application charge process ends you will can use any "Http" client, like "Postman", to try the "API" end-points.
 #### End-points
 These are the functionalities or end-points offered by the API
+##### Save Account
+Enable to create a new account, necessary to create transactions over it, and save it at the system database.
+
+Http Request description:
+
+- URL:
+	
+	http://localhost:8081/transactions/saveAccount
+- Body:
+	Json input with fields:
+		
+	- [Mandatory]account_iban: The IBAN number of the account where the transaction has happened.		
+		* Constraints:2* 4* 4* 2* 10*
+			- It must me introduced with a valid Spanish IBAN number format:
+				In Spain, the IBAN has 24 digits and is made up of 2 country digits (ES), 2 control digits,
+				4 digits to indicate the bank entity, 4 digits to indicate the account branch, 2 more control digits
+				and 10 digits to indicate the bank account number.
+				Font:
+					https://es.wikipedia.org/wiki/International_Bank_Account_Number
+					https://www.iban.es/estructura-del-iban.html
+			- The digits groups can stay separated by blank space or not.
+			Valid IBAN input examples:
+				ES00 0000 0000 00 0000000000
+				ES000000 0000 00 0000000000
+				ES0000000000 00 0000000000
+				ES000000000000 0000000000
+				ES0000000000000000000000	
+	
+	- [Mandatory]balance: the initial money contained by the account.
+		* Constraints:
+			- Must be a real number with two decimals or with no decimals.
+			- Decimal separator must be ".".
+			- Must be a positive number.
+		Valid "amount" input examples:
+			1500
+			10.50
+Examples of valid transaction inputs for saving:
+
+		{
+			"account_iban":"ES10 1587 8494 12 8901538501",
+    		"balance":"100.25"
+		}
+		
+		{
+			"account_iban":"ES10 1587 8494 12 8901538545",
+    		"balance":"100000"
+		}		
 ##### Save Transaction
 Enable to create a new transaction and save it at the system database.
 
