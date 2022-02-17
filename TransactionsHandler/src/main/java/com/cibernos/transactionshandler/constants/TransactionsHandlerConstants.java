@@ -8,6 +8,7 @@ package com.cibernos.transactionshandler.constants;
 public class TransactionsHandlerConstants {
 
 	// Process trace messages
+	public static final String TRANSACTIONS_HANDLER_READY = "The Transactions Handler is ready to work!";
 	public static final String SAVING_TRANSACTION = "A new transaction is being saved: '{}'.";
 	public static final String SAVING_ACCOUNT = "A new account is being saved: '{}'.";
 	public static final String SAVING_TRANSACTION_SERVICE_STARTED = "The service to save the transaction '{}' has started.";
@@ -32,12 +33,14 @@ public class TransactionsHandlerConstants {
 	public static final String NOT_NULL_AMOUNT = "The transaction amount to save can't be null.";
 	public static final String NOT_NULL_BALANCE = "The account balance to save can't be null.";
 	public static final String NOT_NULL_ACCOUNT = "The account to save can't be null.";
-	public static final String POSITIVE_ACCOUNT_BALANCE = "The initial account balance must be possitive.";
-	public static final String IBAN_CODE_NOT_FOUND = "The IBAN code of the transaction could not be fount in system.";
+	public static final String NOT_NULL_IBAN = "The account IBAN can't be null.";
+	public static final String POSITIVE_ACCOUNT_BALANCE = "The initial account balance must a positive real number with no more than two decimals.";
+	public static final String IBAN_CODE_NOT_FOUND = "The IBAN code of the transaction could not be found in system.";
+	public static final String IBAN_CODE_NOT_UNIQUE = "There is already an account in the system with the IBAN code entered.";
 	public static final String IBAN_CODE_FORMAT = "The IBAN for a bank account is made up of two capital letters and twenty numeric characters.";
 	public static final String TRANSACTION_LESS_THAN_AMOUNT = "The transaction fee must be less than it's amount.";
 	public static final String MONETARY_CIPHER = "A monetary cipher must be set as a real number with no more than two decimals.";
-	public static final String DESCRIPTION_MAX_SIZE = "The transaction description can't no contain more than 150 characters.";
+	public static final String DESCRIPTION_MAX_SIZE = "The transaction description can't contain more than 150 characters.";
 	public static final String UNFEASIBLE_TRANSACTION = "The account has no balance enough for the transaction, so it's unfeasible.";
 
 	// Useful values for data format

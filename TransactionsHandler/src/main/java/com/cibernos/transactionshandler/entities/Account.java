@@ -46,11 +46,11 @@ public class Account {
 	/**
 	 * @param transaction
 	 * @throws InsufficienBalanceForTransaction Overloaded 'setBalance' method to
-	 *                                         calculate the new balance after the
-	 *                                         last transaction. Since a transaction
-	 *                                         is not allowed to result in a
-	 *                                         negative balance, an exception will
-	 *                                         be thrown in this case.
+	 *                                          calculate the new balance after the
+	 *                                          last transaction. Since a
+	 *                                          transaction is not allowed to result
+	 *                                          in a negative balance, an exception
+	 *                                          will be thrown in this case.
 	 */
 	public void setBalance(Transaction transaction) throws InsufficienBalanceForTransaction {
 

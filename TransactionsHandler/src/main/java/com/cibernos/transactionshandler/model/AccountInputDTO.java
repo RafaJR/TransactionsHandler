@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 
 import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
 import com.cibernos.transactionshandler.validation.IbanConstraint;
+import com.cibernos.transactionshandler.validation.IbanUniqueSystemConstraint;
 import com.cibernos.transactionshandler.validation.PositiveDoubleValueAsStringConstrain;
 
 import lombok.AllArgsConstructor;
@@ -24,8 +25,9 @@ import lombok.ToString;
 @ToString
 public class AccountInputDTO {
 
-	@NotNull
+	@NotNull(message = TransactionsHandlerConstants.NOT_NULL_IBAN)
 	@IbanConstraint
+	@IbanUniqueSystemConstraint
 	private String account_iban;
 	@NotNull(message = TransactionsHandlerConstants.NOT_NULL_BALANCE)
 	@PositiveDoubleValueAsStringConstrain
