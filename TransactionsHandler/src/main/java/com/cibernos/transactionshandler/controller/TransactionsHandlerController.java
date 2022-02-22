@@ -19,6 +19,7 @@ import com.cibernos.transactionshandler.exceptions.InsufficienBalanceForTransact
 import com.cibernos.transactionshandler.model.AccountInputDTO;
 import com.cibernos.transactionshandler.model.TransactionInputDTO;
 import com.cibernos.transactionshandler.service.TransactionService;
+import com.cibernos.transactionshandler.validation.FeeConstraint;
 import com.cibernos.transactionshandler.validation.UnfasibleTransactionConstraint;
 
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +46,7 @@ public class TransactionsHandlerController {
 	@PostMapping("/saveTransaction")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<String> saveTransaction(
-			@Valid @NotNull(message = TransactionsHandlerConstants.NOT_NULL_TRANSACTION) @UnfasibleTransactionConstraint @RequestBody TransactionInputDTO transactionInput) {
+			@Valid @NotNull(message = TransactionsHandlerConstants.NOT_NULL_TRANSACTION) @FeeConstraint @UnfasibleTransactionConstraint @RequestBody TransactionInputDTO transactionInput) {
 
 		log.info(TransactionsHandlerConstants.SAVING_TRANSACTION_CALL_STARTED, transactionInput.toString());
 

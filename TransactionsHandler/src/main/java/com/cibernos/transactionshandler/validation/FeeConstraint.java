@@ -13,7 +13,8 @@ import com.cibernos.transactionshandler.constants.TransactionsHandlerConstants;
 
 /**
  * @author Rafael Jiménez Reina
- * @email rafael.jimenez.reina@gmail.com Interface for Fee field validation
+ * @email rafael.jimenez.reina@gmail.com Interface for Fee field validation. The
+ *        fee can't be major than the transaction ammount
  * @implementations: FeeValidator
  */
 @Documented

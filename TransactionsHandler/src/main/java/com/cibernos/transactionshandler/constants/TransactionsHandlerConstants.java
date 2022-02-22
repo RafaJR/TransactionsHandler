@@ -38,7 +38,7 @@ public class TransactionsHandlerConstants {
 	public static final String IBAN_CODE_NOT_FOUND = "The IBAN code of the transaction could not be found in system.";
 	public static final String IBAN_CODE_NOT_UNIQUE = "There is already an account in the system with the IBAN code entered.";
 	public static final String IBAN_CODE_FORMAT = "The IBAN for a bank account is made up of two capital letters and twenty numeric characters.";
-	public static final String TRANSACTION_LESS_THAN_AMOUNT = "The transaction fee must be less than it's amount.";
+	public static final String TRANSACTION_LESS_THAN_AMOUNT = "The transaction fee must be less than it's amount absolute value.";
 	public static final String MONETARY_CIPHER = "A monetary cipher must be set as a real number with no more than two decimals.";
 	public static final String DESCRIPTION_MAX_SIZE = "The transaction description can't contain more than 150 characters.";
 	public static final String UNFEASIBLE_TRANSACTION = "The account has no balance enough for the transaction, so it's unfeasible.";

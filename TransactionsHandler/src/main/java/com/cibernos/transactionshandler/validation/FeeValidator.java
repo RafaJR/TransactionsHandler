@@ -13,12 +13,29 @@ public class FeeValidator implements ConstraintValidator<FeeConstraint, Transact
 
 	/**
 	 * @param TransactionInputDTO Method to validate that the transaction fee is
-	 *                            minor than it's amount
+	 *                            positive and minor than it's amount absolute value
+	 *                            (positive value of amount)
 	 */
 	@Override
 	public boolean isValid(TransactionInputDTO transactionInputDTO, ConstraintValidatorContext context) {
 
-		return Double.valueOf(transactionInputDTO.getFee()) < Double.valueOf(transactionInputDTO.getAmount());
+		// If fee is a null value, it will be set to 0
+		Double fee = transactionInputDTO.getFee() != null ? Double.valueOf(transactionInputDTO.getFee()) : 0;
+
+		// fee must be set as a positive value
+		boolean isValidFee = fee >= 0;
+
+		if (isValidFee) {
+
+			Double absAmount = Double.valueOf(transactionInputDTO.getAmount());
+			absAmount = absAmount < 0 ? absAmount * -1 : absAmount;
+			
+			// Fee must me minor than the transaction amount absolute value
+			isValidFee = fee < absAmount;
+		}
+
+		return isValidFee;
+
 	}
 
 }
